@@ -7,13 +7,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const tasks_module_1 = require("./tasks/tasks.module");
-let AppModule = class AppModule {
+const task_model_1 = require("./task.model");
+const uuid_1 = require("uuid");
+let TasksService = class TasksService {
+    constructor() {
+        this.tasks = [];
+    }
+    getAllTasks() {
+        return this.tasks;
+    }
+    createTask(title, description) {
+        const task = {
+            id: uuid_1.v4(),
+            title,
+            description,
+            status: task_model_1.TaskStatus.DONE
+        };
+        this.tasks.push(task);
+        return task;
+    }
 };
-AppModule = __decorate([
-    common_1.Module({
-        imports: [tasks_module_1.TasksModule],
-    })
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+TasksService = __decorate([
+    common_1.Injectable()
+], TasksService);
+exports.TasksService = TasksService;
+//# sourceMappingURL=tasks.service.js.map
